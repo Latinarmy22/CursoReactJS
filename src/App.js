@@ -11,14 +11,24 @@ const defaultTodos = [{ text: 'Cortar Cebolla',completed: false},{text: 'Cortar 
 
 function App() {
 
+  // estado de todos
   const [todos, setTodos] = React.useState(defaultTodos);
 
+  // estado de busqueda
   const [searchValue, setSearchValue] = React.useState('');
   console.log('los usuarios buscan: ' + searchValue)
 
+  // Contador
   const completedTodos = todos.filter(
     todo => !!todo.completed).length;
   const totalTodos = todos.length;
+
+  // Buscador
+  const searchedTodos = todos.filter(
+    (todo) => {
+      return todo.text.includes(searchValue)
+    }
+  )
 
   return (
     <>
@@ -29,7 +39,7 @@ function App() {
       />
 
       <TodoList>
-        { defaultTodos.map(todo => (
+        { searchedTodos.map(todo => (
           <TodoItem key={todo.text} text={todo.text} completed={todo.completed}/>
         ))
         }
